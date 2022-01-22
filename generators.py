@@ -1,20 +1,11 @@
 nested_list = [
 	['a', 'b', 'c'],
 	['d', 'e', 'f'],
-	[1, 2, None],
+	[1, 2, None, [1, 2, None,[1, 2, None, ] ]],
+
 ]
 
-def flat_generator(array):
-    count = 0
-    for num in array:
-        count += 1
-
-    for i in range(count):
-        for j in array[i]:
-            yield j
-            
-
-#Базовый генератор
+# # #Базовый генератор
 
 # def flat_generator(array):
 #     for arr in array:
@@ -22,6 +13,22 @@ def flat_generator(array):
 #             yield i
 
 
+def flat_generator(array):
+
+    test_list = True
+    while test_list:
+        tmp_arr = []
+        test_list = False
+        for i in array:
+            if isinstance(i, list):
+                tmp_arr.extend(i)
+                test_list = True
+            else:
+                tmp_arr.append(i)
+        array = tmp_arr
+    for i in array:
+        yield i
+    
 
 if __name__ == '__main__':
     
